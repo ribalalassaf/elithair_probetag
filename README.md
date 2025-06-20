@@ -26,7 +26,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
   - The record is added to the **local Hive database**.
 
 ### 🗑️ 3. Deleting a Record
-- **Not implemented** due to missing `id` in the remote API schema.
+- **Not implemented** due to not having an id for each record.
 - Without a stable identifier, record equality and deletion logic cannot be safely handled.
 
 ---
