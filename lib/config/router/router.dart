@@ -5,5 +5,8 @@ import 'package:elithair_probetag/config/router/router.gr.dart';
 class AppRouter extends RootStackRouter {
   AppRouter({super.navigatorKey});
   @override
-  List<AutoRoute> get routes => [AutoRoute(page: HistoryRoute.page, initial: true), AutoRoute(page: FormRoute.page)];
+  List<AutoRoute> get routes => [
+    AutoRoute(page: HistoryRoute.page, initial: true, maintainState: false),
+    AutoRoute(page: FormRoute.page),
+  ];
 }

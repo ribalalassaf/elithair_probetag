@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-
 abstract class FieldValidator {
   final String value;
   String get message;
@@ -11,7 +9,7 @@ class RequiredValidator extends FieldValidator {
   RequiredValidator({required String value}) : super(value);
 
   @override
-  String get message => 'field_required'.tr();
+  String get message => 'field_required';
 
   @override
   String? validate() => value.isEmpty ? message : null;
@@ -21,7 +19,7 @@ class EmailValidator extends FieldValidator {
   EmailValidator({required String value}) : super(value);
 
   @override
-  String get message => 'invalid_email'.tr();
+  String get message => 'invalid_email';
 
   @override
   String? validate() {
@@ -36,7 +34,7 @@ class PasswordMatchValidator extends FieldValidator {
   PasswordMatchValidator({required String value, required this.value2}) : super(value);
 
   @override
-  String get message => 'passwords_unmatch'.tr();
+  String get message => 'passwords_unmatch';
 
   @override
   String? validate() => value == value2 ? null : message;
@@ -46,7 +44,7 @@ class SanitizerValidator extends FieldValidator {
   SanitizerValidator({required String value}) : super(value);
 
   @override
-  String get message => 'invalid_input'.tr();
+  String get message => 'invalid_input';
 
   @override
   String? validate() {
@@ -56,18 +54,6 @@ class SanitizerValidator extends FieldValidator {
       multiLine: true,
     );
     return regex.hasMatch(value) ? message : null;
-  }
-}
-
-class InstagramValidator extends FieldValidator {
-  InstagramValidator({required String value}) : super(value);
-
-  @override
-  String get message => "invalid_instagram_link".tr();
-  @override
-  String? validate() {
-    final regex = RegExp(r'^(https?:\/\/)?(www\.)?instagram\.com\/([A-Za-z0-9_.]+)\/?$', caseSensitive: false);
-    return regex.hasMatch(value) ? null : message;
   }
 }
 

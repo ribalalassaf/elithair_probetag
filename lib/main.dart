@@ -1,15 +1,13 @@
 import 'package:elithair_probetag/config/injectable.dart';
 import 'package:elithair_probetag/config/router/router.dart';
+import 'package:elithair_probetag/utils/hive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   configureDependencies();
-  await Hive.initFlutter();
-  // Hive.registerAdapter(RecordModelAdapter());
 
   final appRouter = AppRouter();
-
+  await HiveHelper.init();
   runApp(MyApp(appRouter: appRouter));
 }
 

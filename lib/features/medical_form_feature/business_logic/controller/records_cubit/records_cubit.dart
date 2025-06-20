@@ -12,14 +12,22 @@ part 'records_cubit.freezed.dart';
 class RecordsCubit extends Cubit<RecordsState> {
   final GetRecordsService _getRecordsService;
   final AddRecordService _addRecordService;
+  final AddRecordToLocalService _addRecordToLocalService;
+  final GetLocalRecordsService _getLocalRecordsService;
 
-  RecordsCubit(this._getRecordsService, this._addRecordService) : super(RecordsState.initial());
+  RecordsCubit(
+    this._getRecordsService,
+    this._addRecordService,
+    this._addRecordToLocalService,
+    this._getLocalRecordsService,
+  ) : super(RecordsState.initial());
 
   void getRecords() async {
     emit(RecordsState.inProgress());
     final dataState = await _getRecordsService.call();
+    final localRecords = _getLocalRecordsService.call();
     if (dataState.isSuccess()) {
-      emit(RecordsState.recordsSuccess(dataState.data ?? []));
+      emit(RecordsState.recordsSuccess([...?dataState.data, ...localRecords]));
     } else {
       emit(RecordsState.failure());
     }
@@ -29,6 +37,7 @@ class RecordsCubit extends Cubit<RecordsState> {
     emit(RecordsState.inProgress());
     final dataState = await _addRecordService.call(model);
     if (dataState.isSuccess()) {
+      await _addRecordToLocalService.call(RecordModel.fromForm(model));
       emit(RecordsState.success());
     } else {
       emit(RecordsState.failure());

@@ -1,3 +1,4 @@
+import 'package:elithair_probetag/features/medical_form_feature/model/form_model.dart';
 import 'package:hive/hive.dart';
 part 'record_model.g.dart';
 
@@ -19,5 +20,12 @@ class RecordModel {
     submittedAt: json["submittedAt"] == null ? null : DateTime.parse(json["submittedAt"]),
     conditions: json["conditions"] == null ? [] : List<String>.from(json["conditions"]!.map((x) => x)),
     priorTransplant: json["priorTransplant"],
+  );
+
+  factory RecordModel.fromForm(FormModel form) => RecordModel(
+    id: "local-db id",
+    submittedAt: DateTime.now(),
+    conditions: form.conditions,
+    priorTransplant: form.priorTransplant,
   );
 }
